@@ -61,3 +61,22 @@ After this import, the changes can be merged first into the `upstream-renamed`
 branch and then into the `master` branch. The intermediate step is necessary
 because *git merge* would treat files that were both renamed and heavily changed
 as new files.
+
+## Using with CMake FetchContent
+
+To use libfvad in your own CMake project:
+
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+  fvad
+  GIT_REPOSITORY https://github.com/mrdcvlsc/libfvad.git
+  GIT_TAG        master # or a specific release/tag
+)
+FetchContent_MakeAvailable(fvad)
+
+# Link to your target
+target_link_libraries(your_target PRIVATE fvad::fvad)
+```
+
+You can also try using `find_package(fvad CONFIG REQUIRED)` if you have installed libfvad to your system or a CMAKE_PREFIX_PATH location.
